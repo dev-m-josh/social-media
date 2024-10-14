@@ -8,15 +8,13 @@ app.use(express.urlencoded({extended:true}));
 const { authRouters } = require('./routers/authRoutes');
 const { userRouter } = require('./routers/user_routes');
 const { postsRouter } = require('./routers/posts_router');
-const { commentsRouter } = require('./routers/comments_router');
 const { verifyToken, errorHandler, undefinedRoutesHandler } = require('./middlewares/middleware');
 
-app.use(authRouters);
+app.use('/users', authRouters);
 
 app.use(verifyToken)
-app.use(userRouter);
-app.use(postsRouter);
-app.use(commentsRouter);
+app.use('/users', userRouter);
+app.use('/posts' ,postsRouter);
 app.use(errorHandler);
 app.use('*', undefinedRoutesHandler)
 
